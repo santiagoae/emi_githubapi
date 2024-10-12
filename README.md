@@ -1,30 +1,42 @@
-## Índice
+# Descripción del proyecto
+
+Este proyecto hace uso de la api de Github para el desarrollo de una aplicación de perfiles de usuarios. La intensión es dar a conocer las diferentes funcionalidades de Angular como lo son los standalone components, guards, services, signal, rxjs para el manejo de estados con servicios compartidos, el uso de animaciones con animate-css, la creación de directivas, el uso de asyncronia y de observables, el uso de amchart5 para las gráficas, el manejo de formularios reactivos y otros conceptos como el lazy loading, el uso de SOLID, clean code, dry, arquitectura limpia por contenedores o screaming architecture entre otras cosas.
+
+## Acceso Rápido
 
 - [Solución preguntas](#Solución-preguntas)
 
-# Emigithubapi
+## Stack
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.6.
+- Angular 18
+- Typescript
+- Tailwindcss
+- Amcharts5
+- Rxjs
+- Animate.css
+- Font Awesome Icons
+- Cdn
+- Git
+- Github
 
-## Development server
+## Como iniciar
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- clona el repositorio con `git clone https://github.com/santiagoae/emi_githubapi.git`
+- entra al directorio del proyecto con `cd emi_githubapi`
+- instala las dependencias con `npm install`
+- ejecuta el proyecto con `npm run start`
 
-## Code scaffolding
+## Documentación Usada
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- [Angular](https://angular.dev/)
+- [Git-Api](https://docs.github.com/en/rest)
+- [Amcharts](https://www.amcharts.com/docs/v5/)
+- [Animate.css](https://animate.style/)
+- [Font Awesome](https://fontawesome.com/)
+- [Cdn](https://cdnjs.com/libraries/font-awesome)
+- [Tailwind](https://tailwindcss.com/)
+- [Flowbite](https://flowbite.com/)
+- [Gpt](https://chatgpt.com/)
 
 ## Solución preguntas
 
