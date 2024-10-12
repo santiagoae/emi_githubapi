@@ -1,3 +1,7 @@
+## Índice
+
+- [Solución preguntas](#Solución-preguntas)
+
 # Emigithubapi
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.6.
@@ -22,9 +26,9 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
+## Solución preguntas
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Aqui se encuentran las soluciones a las preguntas de Frontend Angular.
 
 <details name="acordeon" style="white-space: pre-line;">
 <summary>titulo del detalle 1</summary>
