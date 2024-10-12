@@ -4,6 +4,11 @@ Este proyecto hace uso de la api de Github para el desarrollo de una aplicación
 
 Si deseas ver el proyecto funcionando puedes visitar este link [Grupo-emi-santiago-avendaño-escobar](https://grupoemisantiagoavendanioescobar.netlify.app)
 
+## Trazabilidad
+
+- Santiago Avendaño Escobar
+- Colombia
+
 ## Acceso Rápido
 
 - [Solución preguntas](#Solución-preguntas)
