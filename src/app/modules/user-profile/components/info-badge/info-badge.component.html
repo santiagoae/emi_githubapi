@@ -1,0 +1,10 @@
+<a
+  class="flex gap-x-2 rounded-md text-xs font-semibold py-1 px-2 min-w-20 min-h-4 justify-center items-center {{
+    backgroundColor()
+  }} hover:bg-slate-300 hover:text-black hover:scale-110 transition cursor-pointer"
+  [href]="href()"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <ng-content></ng-content>
+</a>
