@@ -6,10 +6,19 @@
         [control]="$any(usersGithubForm().get('username'))"
         [type]="'text'"
         [placeHolder]="'santiagoae BUSCAME!'"
-        [errorMessage]="'Username is required'"
+        [errorMessage]="'Invalid or short Username'"
       ></custom-input>
 
-      <button class="mt-2" type="submit">Buscar</button>
+      <button
+        class="mt-2"
+        type="submit"
+        [ngClass]="{
+          'bg-gray-400 hover:bg-gray-400 ': !usersGithubForm().valid
+        }"
+        [disabled]="!this.usersGithubForm().valid"
+      >
+        Buscar
+      </button>
     </form>
   </section>
   <section class="mt-10">

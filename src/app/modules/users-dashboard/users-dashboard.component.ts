@@ -5,18 +5,19 @@ import { GithubService } from './services/github.service';
 import { defaultGithubServiceResponse, IGithubService } from './interfaces/githubService.interface';
 import { CardUserComponent } from './components/card-user/card-user.component';
 import { Router } from '@angular/router';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-users-dashboard',
   standalone: true,
-  imports: [ReactiveFormsModule, CustomInputComponent, CardUserComponent],
+  imports: [ReactiveFormsModule, CustomInputComponent, CardUserComponent, NgClass],
   templateUrl: './users-dashboard.component.html',
   styleUrl: './users-dashboard.component.scss'
 })
 export class UsersDashboardComponent implements OnInit{
   
   usersGithubForm = signal<FormGroup>(this.formBuilder.group({
-    username: ['', Validators.required]
+    username: ['', [Validators.required, Validators.pattern(/^(?!.*gcpglobal).{4,}$/)]]
   }));
   usersGithub = signal<IGithubService>(defaultGithubServiceResponse);
   selectedUser = signal<string>('');
@@ -36,6 +37,8 @@ export class UsersDashboardComponent implements OnInit{
 
   onSubmit(){
     console.log(this.usersGithubForm().value); 
+    if(!this.usersGithubForm().valid) return;
+    
     this.githubService.getUsersGithub(this.usersGithubForm().get('username')!.value).subscribe({
       next: res => {
         console.log(res);
