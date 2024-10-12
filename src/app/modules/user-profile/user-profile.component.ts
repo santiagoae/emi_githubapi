@@ -27,7 +27,6 @@ export class UserProfileComponent implements OnInit {
   getUserInfoByUsername(username: string){
     this.githubService.getUserByUsername(username).subscribe({
       next: res => {
-        console.log(res);
         this.selectedUser.set(res);
       },
       error: err => {
