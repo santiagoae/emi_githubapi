@@ -1,0 +1,14 @@
+<main class="flex items-center gap-4">
+  <picture class="w-24 h-24 flex justify-center items-center">
+    <img
+      src="{{ user()!.avatar_url }}"
+      alt="avatar"
+      width="80%"
+      class="rounded-full"
+    />
+  </picture>
+  <article>
+    <p>{{ user()!.login }}</p>
+    <p>{{ user()!.id }}</p>
+  </article>
+</main>

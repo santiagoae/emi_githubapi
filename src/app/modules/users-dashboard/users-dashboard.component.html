@@ -1,15 +1,29 @@
-<main class="h-dvh flex flex-col items-center">
+<main class="min-h-[100vh] flex flex-col items-center">
   <section class="flex flex-col justify-center items-center">
-    <form [formGroup]="usersGithub()" (ngSubmit)="onSubmit()">
+    <form [formGroup]="usersGithubForm()" (ngSubmit)="onSubmit()">
       <custom-input
         [label]="'Username'"
-        [control]="$any(usersGithub().get('username'))"
+        [control]="$any(usersGithubForm().get('username'))"
         [type]="'text'"
         [placeHolder]="'Username'"
         [errorMessage]="'Username is required'"
       ></custom-input>
 
-      <button class="mt-2">Buscar</button>
+      <button class="mt-2" type="submit">Buscar</button>
     </form>
+  </section>
+  <section class="mt-10">
+    @if(usersGithub().items.length > 0){
+    <h1 class="text-white text-center font-black text-3xl mb-10">
+      Usuario actual: <span class="text-sky-500">{{ selectedUser() }}</span>
+    </h1>
+    <article class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      @for(user of usersGithub().items; track $index){
+      <app-card-user [user]="user"></app-card-user>
+      }
+    </article>
+    }@else {
+    <p>Actualmente no hay usuarios registrados</p>
+    }
   </section>
 </main>
