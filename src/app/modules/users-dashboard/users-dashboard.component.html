@@ -1,0 +1,15 @@
+<main class="h-dvh flex flex-col items-center">
+  <section class="flex flex-col justify-center items-center">
+    <form [formGroup]="usersGithub()" (ngSubmit)="onSubmit()">
+      <custom-input
+        [label]="'Username'"
+        [control]="$any(usersGithub().get('username'))"
+        [type]="'text'"
+        [placeHolder]="'Username'"
+        [errorMessage]="'Username is required'"
+      ></custom-input>
+
+      <button class="mt-2">Buscar</button>
+    </form>
+  </section>
+</main>
