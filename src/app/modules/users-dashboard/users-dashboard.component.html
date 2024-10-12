@@ -37,6 +37,9 @@
   </section>
   @defer(when chartData()) {
   <section class="w-full h-[700px] p-24 cursor-move" #appBarChart>
+    <h1 class="text-white text-center font-black text-3xl">
+      Número de seguidores por usuario
+    </h1>
     <article
       appBarChart
       [chData]="chartData()!"
