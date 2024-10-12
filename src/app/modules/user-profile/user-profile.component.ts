@@ -2,11 +2,12 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GithubServiceService } from './services/github-service.service';
 import { defaultSelectedUser, ISelectedUser } from './interfaces/githubService.interface';
+import { InfoBadgeComponent } from './components/info-badge/info-badge.component';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [],
+  imports: [InfoBadgeComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
 })
@@ -33,5 +34,9 @@ export class UserProfileComponent implements OnInit {
         console.log(err);
       }
     })
+  }
+
+  goBack(){
+    window.history.back();
   }
 }

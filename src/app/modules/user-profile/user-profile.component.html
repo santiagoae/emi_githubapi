@@ -1,5 +1,10 @@
 <main class="min-h-[100vh] p-20">
-  <section class="grid grid-cols-3 gap-4">
+  <header class="mb-4">
+    <button (click)="goBack()">
+      <i class="fa-solid fa-circle-arrow-left"></i> Regresar
+    </button>
+  </header>
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
     <article class="col-span-1 bg-slate-800 rounded-lg">
       <div class="flex justify-center items-center p-10">
         <img
@@ -10,8 +15,8 @@
         />
       </div>
     </article>
-    <article class="col-span-2 bg-slate-500 rounded-lg">
-      <div class="p-10">
+    <article class="col-span-1 md:col-span-2 bg-slate-500 rounded-lg p-10">
+      <div>
         <small>{{ selectedUser().created_at }}</small>
         <h1 class="text-3xl">{{ selectedUser().name }}</h1>
         <p>
@@ -23,6 +28,27 @@
           voluptatem ipsum iste quas praesentium laudantium, soluta id? Autem
           praesentium sit consequuntur!
         </p>
+      </div>
+
+      <div class="flex flex-wrap gap-x-2 mt-20">
+        <app-info-badge
+          [backgroundColor]="'bg-slate-400'"
+          [href]="selectedUser().html_url"
+        >
+          <i class="fa-brands fa-github"></i> Github
+        </app-info-badge>
+        <app-info-badge
+          [backgroundColor]="'bg-sky-700'"
+          [href]="selectedUser().blog"
+        >
+          <i class="fa-solid fa-globe"></i> Website
+        </app-info-badge>
+        <app-info-badge
+          [backgroundColor]="'bg-red-500'"
+          [href]="'mailto:santiagoavn@gmail.com'"
+        >
+          <i class="fa-solid fa-envelope"></i> Email
+        </app-info-badge>
       </div>
     </article>
   </section>
