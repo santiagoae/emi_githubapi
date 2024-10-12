@@ -7,6 +7,11 @@ export const routes: Routes = [
         title: 'Users Dashboard'
     },
     {
+        path: 'user-profile',
+        loadComponent: () => import('./user-profile/user-profile.component').then(c => c.UserProfileComponent),
+        title: 'Users Profile'
+    },
+    {
         path: '**',
         redirectTo: 'users',
         pathMatch: 'full'

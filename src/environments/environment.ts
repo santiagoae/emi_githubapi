@@ -1,4 +1,5 @@
 export const environment = {
     production: false,
-    apiUrl: 'https://api.github.com/search/users'
+    searchAllApiUrl: 'https://api.github.com/search/users',
+    byUserApiUrl: 'https://api.github.com/users/'    
 }

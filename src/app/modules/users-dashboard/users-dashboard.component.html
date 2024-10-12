@@ -19,7 +19,10 @@
     </h1>
     <article class="grid grid-cols-1 md:grid-cols-3 gap-4">
       @for(user of usersGithub().items; track $index){
-      <app-card-user [user]="user"></app-card-user>
+      <app-card-user
+        [user]="user"
+        (click)="onSelectUser(user.login)"
+      ></app-card-user>
       }
     </article>
     }@else {

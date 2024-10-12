@@ -4,6 +4,7 @@ import { CustomInputComponent } from './components/custom-input/custom-input.com
 import { GithubService } from './services/github.service';
 import { defaultGithubServiceResponse, IGithubService } from './interfaces/githubService.interface';
 import { CardUserComponent } from './components/card-user/card-user.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users-dashboard',
@@ -21,6 +22,7 @@ export class UsersDashboardComponent {
   selectedUser = signal<string>('');
 
   private githubService = inject(GithubService)
+  private router = inject(Router)
   
   constructor(private formBuilder: FormBuilder) {}
 
@@ -37,5 +39,9 @@ export class UsersDashboardComponent {
         console.log(err);
       }
     })   
+  }
+
+  onSelectUser(username: string){
+    this.router.navigateByUrl(`/user-profile?username=${username}`);
   }
 }

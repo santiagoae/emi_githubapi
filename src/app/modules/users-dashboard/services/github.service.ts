@@ -9,11 +9,13 @@ import { IGithubService } from '../interfaces/githubService.interface';
 })
 export class GithubService {
 
-   private readonly githubApiUrl: string = environment.apiUrl;
+   private readonly searchAllApiUrl: string = environment.searchAllApiUrl;
   
   constructor(private http: HttpClient) { }
 
   getUsersGithub(username: string): Observable<IGithubService> {
-    return this.http.get<IGithubService>(`${this.githubApiUrl}?q=${username}&per_page=10`);
+    return this.http.get<IGithubService>(`${this.searchAllApiUrl}?q=${username}&per_page=10`);
   }
+
+  
 }
