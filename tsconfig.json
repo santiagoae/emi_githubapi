@@ -26,6 +26,7 @@
     "baseUrl": "./",
     "paths": {
       "@environment/*": ["src/environments/*"],
+      "@directives/*": ["src/app/directives/*"],
     }
   },
   "angularCompilerOptions": {
