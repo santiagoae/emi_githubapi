@@ -2,7 +2,7 @@
 
 Este proyecto hace uso de la api de Github para el desarrollo de una aplicación de perfiles de usuarios. La intensión es dar a conocer las diferentes funcionalidades de Angular como lo son los standalone components, guards, services, signal, rxjs para el manejo de estados con servicios compartidos, el uso de animaciones con animate-css, la creación de directivas, el uso de asyncronia y de observables, el uso de amchart5 para las gráficas, el manejo de formularios reactivos y otros conceptos como el lazy loading, el uso de SOLID, clean code, dry, arquitectura limpia por contenedores o screaming architecture entre otras cosas.
 
-Si deseas ver el proyecto funcionando puedes visitar este link [Grupo-emi-santiago-avendaño-escobar](https://grupoemisantiagoavendanioescobar.netlify.app/users)
+Si deseas ver el proyecto funcionando puedes visitar este link [Grupo-emi-santiago-avendaño-escobar](https://grupoemisantiagoavendanioescobar.netlify.app)
 
 ## Acceso Rápido
 
