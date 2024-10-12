@@ -6,11 +6,12 @@ import { defaultGithubServiceResponse, IGithubService, Item } from './interfaces
 import { CardUserComponent } from './components/card-user/card-user.component';
 import { Router } from '@angular/router';
 import { NgClass } from '@angular/common';
+import { BarChartDirective } from '@directives/bar-chart.directive';
 
 @Component({
   selector: 'app-users-dashboard',
   standalone: true,
-  imports: [ReactiveFormsModule, CustomInputComponent, CardUserComponent, NgClass],
+  imports: [ReactiveFormsModule, CustomInputComponent, CardUserComponent, NgClass, BarChartDirective],
   templateUrl: './users-dashboard.component.html',
   styleUrl: './users-dashboard.component.scss'
 })

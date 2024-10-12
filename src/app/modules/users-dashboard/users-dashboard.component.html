@@ -35,4 +35,9 @@
     <p>Actualmente no hay usuarios registrados</p>
     }
   </section>
+  <section class="w-full h-[700px] p-24 cursor-move" #appBarChart>
+    @defer(on viewport(appBarChart)) {
+    <article appBarChart class="w-full h-full"></article>
+    }@placeholder { }
+  </section>
 </main>
