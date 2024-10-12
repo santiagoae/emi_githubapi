@@ -6,7 +6,6 @@ import { defaultGithubServiceResponse, IGithubService } from './interfaces/githu
 import { CardUserComponent } from './components/card-user/card-user.component';
 import { Router } from '@angular/router';
 import { NgClass } from '@angular/common';
-import { HandleToastService } from 'src/app/shared/handle-toast.service';
 
 @Component({
   selector: 'app-users-dashboard',
@@ -25,7 +24,6 @@ export class UsersDashboardComponent implements OnInit{
 
   private githubService = inject(GithubService)
   private router = inject(Router)
-  private handlerToastService = inject(HandleToastService);
   
   constructor(private formBuilder: FormBuilder) {}
 
@@ -41,7 +39,6 @@ export class UsersDashboardComponent implements OnInit{
   onSubmit(){
     console.log(this.usersGithubForm().value); 
     if(!this.usersGithubForm().valid) return;
-    this.handlerToastService.showToast({alertType: 'error', message: 'Usuario seleccionado'});
     
     this.githubService.getUsersGithub(this.usersGithubForm().get('username')!.value).subscribe({
       next: res => {
