@@ -1,9 +1,9 @@
-export interface dataChart{
+export interface IChartData{
   user: string;
   value: number;
 }
 
-export const defaultDataChart:Array<dataChart> = [{
+export const defaultDataChart:Array<IChartData> = [{
     user: "USA",
     value: 2025
   }, {

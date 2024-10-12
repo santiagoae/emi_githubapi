@@ -1,47 +1,47 @@
-import { AfterViewInit, Directive, ElementRef, input } from '@angular/core';
+import { AfterViewInit, effect, Directive, ElementRef, input, signal, OnInit } from '@angular/core';
 /* Imports */
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
-import { defaultDataChart } from './interfaces/bar-chart.interface';
-
-
-interface dataChart{
-  user: string;
-  value: number;
-}
-
+import { IChartData, defaultDataChart } from './interfaces/bar-chart.interface';
 
 
 @Directive({
   selector: '[appBarChart]',
   standalone: true
 })
-export class BarChartDirective implements AfterViewInit {
+export class BarChartDirective implements AfterViewInit{
 
-  chData = input<Array<dataChart>>(defaultDataChart);
+  chData = input<Array<IChartData>>(defaultDataChart);
+  private root = signal<am5.Root | undefined>(undefined);
+  private xAxis = signal<am5xy.CategoryAxis<any> | undefined>(undefined);
+  private series = signal<am5xy.ColumnSeries | undefined>(undefined);
 
-  constructor(private elementRef: ElementRef<HTMLElement>) {}
+  constructor(private elementRef: ElementRef<HTMLElement>) {
+    effect(() => {
+        if(!this.xAxis()) return;
+        this.xAxis()!.data.setAll(this.chData());
+        this.series()!.data.setAll(this.chData());            
+      }, {allowSignalWrites: true});    
+  }
   
   ngAfterViewInit(): void {
-    this.#createChart();
+    this.root.set(am5.Root.new(this.elementRef.nativeElement));
+    this.#renderChart();
   }
 
-  #createChart(){
-    /* Chart code */
-    // Create root element
-    // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-    let root = am5.Root.new(this.elementRef.nativeElement);
+  #renderChart(){
+    if(!this.root()) return;
       
     // Set themes
     // https://www.amcharts.com/docs/v5/concepts/themes/
-    root.setThemes([
-      am5themes_Animated.new(root)
+    this.root()!.setThemes([
+      am5themes_Animated.new(this.root()!)
     ]);
     
     // Create chart
     // https://www.amcharts.com/docs/v5/charts/xy-chart/
-    let chart = root.container.children.push(am5xy.XYChart.new(root, {
+    let chart = this.root()!.container.children.push(am5xy.XYChart.new(this.root()!, {
       panX: true,
       panY: true,
       wheelX: "panX",
@@ -53,13 +53,13 @@ export class BarChartDirective implements AfterViewInit {
     
     // Add cursor
     // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
-    let cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
+    let cursor = chart.set("cursor", am5xy.XYCursor.new(this.root()!, {}));
     cursor.lineY.set("visible", false);
     
     
     // Create axes
     // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
-    let xRenderer = am5xy.AxisRendererX.new(root, { 
+    let xRenderer = am5xy.AxisRendererX.new(this.root()!, { 
       minGridDistance: 30, 
       minorGridEnabled: true
     });
@@ -75,21 +75,21 @@ export class BarChartDirective implements AfterViewInit {
       location: 1
     })
     
-    let xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+    this.xAxis.set(chart.xAxes.push(am5xy.CategoryAxis.new(this.root()!, {
       maxDeviation: 0.3,
       categoryField: "user",
       renderer: xRenderer,
-      tooltip: am5.Tooltip.new(root, {})
-    }));
+      tooltip: am5.Tooltip.new(this.root()!, {})
+    })));
 
-    xAxis.get("renderer").labels.template.set("fill", am5.color(0xFFFFFF));
-    xAxis.get("renderer").grid.template.set("stroke", am5.color(0xFFFFFF));
+    this.xAxis()!.get("renderer").labels.template.set("fill", am5.color(0xFFFFFF));
+    this.xAxis()!.get("renderer").grid.template.set("stroke", am5.color(0xFFFFFF));
     
-    let yRenderer = am5xy.AxisRendererY.new(root, {
+    let yRenderer = am5xy.AxisRendererY.new(this.root()!, {
       strokeOpacity: 0.1
     })
     
-    let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+    let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(this.root()!, {
       maxDeviation: 0.3,
       renderer: yRenderer
     }));
@@ -99,37 +99,33 @@ export class BarChartDirective implements AfterViewInit {
 
     // Create series
     // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
-    let series = chart.series.push(am5xy.ColumnSeries.new(root, {
+    this.series.set(chart.series.push(am5xy.ColumnSeries.new(this.root()!, {
       name: "Series 1",
-      xAxis: xAxis,
+      xAxis: this.xAxis()!,
       yAxis: yAxis,
       valueYField: "value",
       sequencedInterpolation: true,
       categoryXField: "user",
-      tooltip: am5.Tooltip.new(root, {
+      tooltip: am5.Tooltip.new(this.root()!, {
         labelText: "{valueY}"
       })
-    }));
+    })));
     
-    series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5, strokeOpacity: 0 });
-    series.columns.template.adapters.add("fill", function (fill, target) {
-      return chart.get("colors")!.getIndex(series.columns.indexOf(target));
+    this.series()!.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5, strokeOpacity: 0 });
+    this.series()!.columns.template.adapters.add("fill", (fill, target) => {
+      return chart.get("colors")!.getIndex(this.series()!.columns.indexOf(target));
     });
     
-    series.columns.template.adapters.add("stroke", function (stroke, target) {
-      return chart.get("colors")!.getIndex(series.columns.indexOf(target));
-    });
+    this.series()!.columns.template.adapters.add("stroke", (stroke, target) => {
+      return chart.get("colors")!.getIndex(this.series()!.columns.indexOf(target));
+    });    
     
-    
-    
-    
-    xAxis.data.setAll(this.chData());
-    series.data.setAll(this.chData());
-    
+    this.xAxis()!.data.setAll(this.chData());
+    this.series()!.data.setAll(this.chData());    
     
     // Make stuff animate on load
     // https://www.amcharts.com/docs/v5/concepts/animations/
-    series.appear(1000);
+    this.series()!.appear(1000);
     chart.appear(1000, 100);
   }
 

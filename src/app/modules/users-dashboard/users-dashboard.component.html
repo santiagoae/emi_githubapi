@@ -35,9 +35,13 @@
     <p>Actualmente no hay usuarios registrados</p>
     }
   </section>
+  @defer(when chartData()) {
   <section class="w-full h-[700px] p-24 cursor-move" #appBarChart>
-    @defer(on viewport(appBarChart)) {
-    <article appBarChart class="w-full h-full"></article>
-    }@placeholder { }
+    <article
+      appBarChart
+      [chData]="chartData()!"
+      class="w-full h-full"
+    ></article>
   </section>
+  }@placeholder { }
 </main>

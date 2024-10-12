@@ -7,6 +7,7 @@ import { CardUserComponent } from './components/card-user/card-user.component';
 import { Router } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { BarChartDirective } from '@directives/bar-chart.directive';
+import { IChartData } from '@directives/interfaces/bar-chart.interface';
 
 @Component({
   selector: 'app-users-dashboard',
@@ -22,6 +23,7 @@ export class UsersDashboardComponent implements OnInit{
   }));
   usersGithub = signal<IGithubService>(defaultGithubServiceResponse);
   selectedUser = signal<string>('');
+  chartData = signal<Array<IChartData> | undefined>(undefined);
 
   private githubService = inject(GithubService)
   private router = inject(Router)
@@ -34,17 +36,15 @@ export class UsersDashboardComponent implements OnInit{
       this.usersGithubForm().patchValue({username: selectedUser});
       this.onSubmit();
     }
-
   }
   
   onSubmit(){
-    console.log(this.usersGithubForm().value); 
     if(!this.usersGithubForm().valid) return;
     
     this.githubService.getUsersGithub(this.usersGithubForm().get('username')!.value).subscribe({
-      next: res => {
-        console.log(res);
+      next: async (res) => {
         this.usersGithub.set(res);
+        this.chartData.set(await this.#fillChartData());
         this.selectedUser.set(this.usersGithubForm().get('username')!.value);
         sessionStorage.setItem('selectedUser', this.usersGithubForm().get('username')!.value);
         this.usersGithubForm().reset();
@@ -57,6 +57,14 @@ export class UsersDashboardComponent implements OnInit{
 
   onSelectUser(selectedUser: Item){
     this.router.navigateByUrl(`/user-profile/${selectedUser.login}/${selectedUser.score}`);
+  }
+
+  #fillChartData(): Promise<Array<IChartData>>{
+    return Promise.all(this.usersGithub().items.map(async (user) => {
+      const response = await fetch(user.followers_url) // aqui tambien se puede evidenciar el uso del fetch
+      const followers = await response.json();
+      return {user: user.login, value: followers.length ?? 0}
+    }))
   }
 
   #getUserFromSessionStorage(): Promise<string>{
