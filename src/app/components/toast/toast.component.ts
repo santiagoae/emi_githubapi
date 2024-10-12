@@ -1,5 +1,8 @@
 import { NgClass } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { AfterViewInit, Component, inject, signal } from '@angular/core';
+import { HandleToastService } from 'src/app/shared/handle-toast.service';
+
+export type alertType = 'success' | 'error' | 'warning' | undefined;
 
 @Component({
   selector: 'app-toast',
@@ -8,8 +11,33 @@ import { Component, input } from '@angular/core';
   templateUrl: './toast.component.html',
   styleUrl: './toast.component.scss'
 })
-export class ToastComponent {
-  success = input(false);
-  error = input(false);
-  warning = input(false);
+export class ToastComponent implements AfterViewInit{
+  
+  selectedAlertType = signal<alertType>(undefined);
+  message = signal<string>('');
+
+  private toastHandlerService = inject(HandleToastService);
+
+  ngAfterViewInit(): void {
+    this.toastHandlerService.toastOptions$.subscribe({
+      next: (data) => {
+        this.selectedAlertType.set(data.alertType ?? undefined);
+        this.message.set(data.message);
+        setTimeout(() => {
+          const toastId = document.getElementById('toast-alert');
+          toastId!.classList.replace('animation-in', 'animation-out');
+          setTimeout(() => {
+            this.onCloseToast();
+          }, 1500);
+        }, 3500);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+
+  onCloseToast(){
+    this.selectedAlertType.set(undefined);
+  }
 }
