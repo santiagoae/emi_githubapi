@@ -1,10 +1,4 @@
-export interface IGithubService {
-    total_count:        number;
-    incomplete_results: boolean;
-    items:              Item[];
-}
-
-export interface Item {
+export interface ISelectedUser {
     login:               string;
     id:                  number;
     node_id:             string;
@@ -23,16 +17,23 @@ export interface Item {
     received_events_url: string;
     type:                string;
     site_admin:          boolean;
-    score:               number;
+    name:                string;
+    company:             null;
+    blog:                string;
+    location:            string;
+    email:               null;
+    hireable:            null;
+    bio:                 string;
+    twitter_username:    null;
+    public_repos:        number;
+    public_gists:        number;
+    followers:           number;
+    following:           number;
+    created_at:          Date;
+    updated_at:          Date;
 }
 
-export const defaultGithubServiceResponse:IGithubService = {
-    incomplete_results: false,
-    items: [],
-    total_count: 0
-}
-
-export const defaultItem:Item = {
+export const defaultSelectedUser:ISelectedUser = {    
     login: '',
     id: 0,
     node_id: '',
@@ -41,7 +42,7 @@ export const defaultItem:Item = {
     url: '',
     html_url: '',
     followers_url: '',
-    following_url: '',
+    following_url: '',                    
     gists_url: '',
     starred_url: '',
     subscriptions_url: '',
@@ -51,5 +52,18 @@ export const defaultItem:Item = {
     received_events_url: '',
     type: '',
     site_admin: false,
-    score: 0
-}
+    name: '',
+    company: null,
+    blog: '',
+    location: '',
+    email: null,
+    hireable: null,
+    bio: '',
+    twitter_username: null,
+    public_repos: 0,
+    public_gists: 0,
+    followers: 0,
+    following: 0,
+    created_at: new Date(),
+    updated_at: new Date()
+}      

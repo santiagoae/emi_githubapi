@@ -1,1 +1,29 @@
-<p>user-profile works!</p>
+<main class="min-h-[100vh] p-20">
+  <section class="grid grid-cols-3 gap-4">
+    <article class="col-span-1 bg-slate-800 rounded-lg">
+      <div class="flex justify-center items-center p-10">
+        <img
+          src="{{ selectedUser().avatar_url }}"
+          alt="avatar"
+          width="100%"
+          class="rounded-full"
+        />
+      </div>
+    </article>
+    <article class="col-span-2 bg-slate-500 rounded-lg">
+      <div class="p-10">
+        <small>{{ selectedUser().created_at }}</small>
+        <h1 class="text-3xl">{{ selectedUser().name }}</h1>
+        <p>
+          {{ selectedUser().bio }}
+        </p>
+        <p>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
+          repellat ipsa animi amet hic temporibus nostrum, quo commodi,
+          voluptatem ipsum iste quas praesentium laudantium, soluta id? Autem
+          praesentium sit consequuntur!
+        </p>
+      </div>
+    </article>
+  </section>
+</main>

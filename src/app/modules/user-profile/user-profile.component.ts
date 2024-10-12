@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GithubServiceService } from './services/github-service.service';
-import { defaultItem, Item } from './interfaces/githubService.interface';
+import { defaultSelectedUser, ISelectedUser } from './interfaces/githubService.interface';
 
 @Component({
   selector: 'app-user-profile',
@@ -12,7 +12,7 @@ import { defaultItem, Item } from './interfaces/githubService.interface';
 })
 export class UserProfileComponent implements OnInit {
 
-  selectedUser = signal<Item>(defaultItem);
+  selectedUser = signal<ISelectedUser>(defaultSelectedUser);
 
   private activatedRoute:ActivatedRoute = inject(ActivatedRoute);
   private githubService = inject(GithubServiceService);

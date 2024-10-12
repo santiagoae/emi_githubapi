@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@environment/environment';
-import { Item } from '../interfaces/githubService.interface';
+import { ISelectedUser } from '../interfaces/githubService.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class GithubServiceService {
   
   constructor(private http: HttpClient) { }
 
-  getUserByUsername(username: string): Observable<Item> {
-    return this.http.get<Item>(`${this.byUserApiUrl}${username}`);
+  getUserByUsername(username: string): Observable<ISelectedUser> {
+    return this.http.get<ISelectedUser>(`${this.byUserApiUrl}${username}`);
   }
 }
