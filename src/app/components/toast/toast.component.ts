@@ -28,8 +28,8 @@ export class ToastComponent implements AfterViewInit{
           toastId!.classList.replace('animation-in', 'animation-out');
           setTimeout(() => {
             this.onCloseToast();
-          }, 1500);
-        }, 3500);
+          }, 1700);
+        }, 5000);
       },
       error: (err) => {
         console.log(err);

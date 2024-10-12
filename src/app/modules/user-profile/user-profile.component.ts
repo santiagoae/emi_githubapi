@@ -19,8 +19,8 @@ export class UserProfileComponent implements OnInit {
   private githubService = inject(GithubServiceService);
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe(({username}) => {
-      this.getUserInfoByUsername(username);
+    this.activatedRoute.paramMap.subscribe((params) => {
+      this.getUserInfoByUsername(params.get('username') || '');
     });
   }
 

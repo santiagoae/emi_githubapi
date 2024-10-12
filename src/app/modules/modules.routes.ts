@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { scoreGuard } from '../guards/score.guard';
 
 export const routes: Routes = [
     {
@@ -7,7 +8,8 @@ export const routes: Routes = [
         title: 'Users Dashboard'
     },
     {
-        path: 'user-profile',
+        path: 'user-profile/:username/:score',
+        canActivate: [scoreGuard],
         loadComponent: () => import('./user-profile/user-profile.component').then(c => c.UserProfileComponent),
         title: 'Users Profile'
     },

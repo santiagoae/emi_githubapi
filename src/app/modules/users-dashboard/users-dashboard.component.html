@@ -2,7 +2,7 @@
   <section class="flex flex-col justify-center items-center">
     <form [formGroup]="usersGithubForm()" (ngSubmit)="onSubmit()">
       <custom-input
-        [label]="'Username'"
+        [label]="'Git username'"
         [control]="$any(usersGithubForm().get('username'))"
         [type]="'text'"
         [placeHolder]="'santiagoae BUSCAME!'"
@@ -28,10 +28,7 @@
     </h1>
     <article class="grid grid-cols-1 md:grid-cols-3 gap-4">
       @for(user of usersGithub().items; track $index){
-      <app-card-user
-        [user]="user"
-        (click)="onSelectUser(user.login)"
-      ></app-card-user>
+      <app-card-user [user]="user" (click)="onSelectUser(user)"></app-card-user>
       }
     </article>
     }@else {

@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CustomInputComponent } from './components/custom-input/custom-input.component';
 import { GithubService } from './services/github.service';
-import { defaultGithubServiceResponse, IGithubService } from './interfaces/githubService.interface';
+import { defaultGithubServiceResponse, IGithubService, Item } from './interfaces/githubService.interface';
 import { CardUserComponent } from './components/card-user/card-user.component';
 import { Router } from '@angular/router';
 import { NgClass } from '@angular/common';
@@ -54,8 +54,8 @@ export class UsersDashboardComponent implements OnInit{
     })   
   }
 
-  onSelectUser(username: string){
-    this.router.navigateByUrl(`/user-profile?username=${username}`);
+  onSelectUser(selectedUser: Item){
+    this.router.navigateByUrl(`/user-profile/${selectedUser.login}/${selectedUser.score}`);
   }
 
   #getUserFromSessionStorage(): Promise<string>{
