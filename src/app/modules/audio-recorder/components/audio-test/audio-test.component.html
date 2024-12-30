@@ -1,0 +1,14 @@
+<main class="flex flex-col gap-2 items-center">
+  <section class="flex gap-2">
+    <button (click)="startRecording()">Grabar</button>
+    <button (click)="stopRecording()" class="bg-red-400">Detener</button>
+  </section>
+
+  <section>
+    @if(audioUrl()){
+    <audio controls>
+      <source [src]="audioUrl()" type="audio/webm" />
+    </audio>
+    }
+  </section>
+</main>

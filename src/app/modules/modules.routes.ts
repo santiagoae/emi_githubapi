@@ -14,6 +14,11 @@ export const routes: Routes = [
         title: 'Users Profile'
     },
     {
+        path: 'audio-test',
+        loadComponent: () => import('./audio-recorder/audio-recorder.component').then(c => c.AudioRecorderComponent),
+        title: 'Audio Recorder'
+    },
+    {
         path: '**',
         redirectTo: 'users',
         pathMatch: 'full'
