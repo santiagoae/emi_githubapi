@@ -32,8 +32,6 @@ export class AudioTestComponent {
     .then((stream) => {
       this.mediaRecorder = new MediaRecorder(stream);
     })
-    console.log(this.mediaRecorder);
-    
   }
 
   startRecording(){
