@@ -89,6 +89,10 @@ export class AudioTestComponent{
       this.mediaRecorder.onstop = () => {
         this.currentBlobAudio = URL.createObjectURL(new Blob(this.chunks, { type: 'audio/mp3' })); //esto seria lo que se guarda en el back.
         this.audioUrl.set(this.sanitaizer.bypassSecurityTrustUrl(this.currentBlobAudio));
+        console.log(this.currentBlobAudio);
+        
+        console.log(this.audioUrl());
+        
       }
       this.mediaRecorder.stop();
     }
