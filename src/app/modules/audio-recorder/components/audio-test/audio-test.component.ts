@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { AfterViewInit, Component, inject, signal } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
@@ -8,10 +8,11 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   templateUrl: './audio-test.component.html',
   styleUrl: './audio-test.component.scss'
 })
-export class AudioTestComponent {
+export class AudioTestComponent{
   private audioConstraints = { audio: true, video: false };
-  private videoConstraints = { audio: true, video: false };
+  private videoConstraints = { audio: true, video: true };
   private mediaRecorder:MediaRecorder | null = null;
+  private videoStream:MediaStream | null = null;
   private currentBlobAudio: string | null = null;
   private currentBlobVideo: string | null = null;
   private sanitaizer = inject(DomSanitizer);
@@ -19,15 +20,6 @@ export class AudioTestComponent {
   protected chunks: Array<Blob> = [];
   protected audioUrl = signal<SafeUrl | null>(null);
   protected videoUrl = signal<SafeUrl | null>(null);
-
-  constructor(){
-    if(navigator.mediaDevices){
-      // this.#setMediaRecorder();
-      this.setMediaVideoRecorder();
-    }else{
-      alert('tu navegador no detecta o no permite el uso de dispositivos de audio, por favor graba el audio en formato mp3 y cargalo, gracias.')
-    }
-  }
 
   #setMediaRecorder(){
     navigator.mediaDevices
@@ -37,9 +29,17 @@ export class AudioTestComponent {
     })
   }
 
-  async setMediaVideoRecorder(){
-    const stream = await navigator.mediaDevices.getDisplayMedia(this.videoConstraints);    
-    this.mediaRecorder = new MediaRecorder(stream);
+  setMediaVideoRecorder(){
+    if(navigator.mediaDevices){
+      navigator.mediaDevices.getDisplayMedia(this.videoConstraints)
+      .then((stream) => {
+        this.videoStream = stream;
+        this.mediaRecorder = new MediaRecorder(stream);
+      }); 
+    }else{
+      alert('tu navegador no detecta o no permite el uso de dispositivos de audio, por favor graba el audio en formato mp3 y cargalo, gracias.')
+    }
+    
   }
 
   #cleanStates(){
@@ -65,16 +65,27 @@ export class AudioTestComponent {
   }
 
   startVideoRecording(){
-    if(this.mediaRecorder){  
-      if(this.currentBlobVideo){
-        this.#cleanStates();
-      }   
-      this.mediaRecorder.ondataavailable = (event) => {
-        console.log("entro");
-        this.chunks.push(event.data);
-      }
-      this.mediaRecorder.start();
+    if(this.currentBlobVideo){
+      this.#cleanStates();
+    } 
+
+    if(navigator.mediaDevices){
+      navigator.mediaDevices.getDisplayMedia(this.videoConstraints)
+      .then((stream) => {
+        this.videoStream = stream;
+        this.mediaRecorder = new MediaRecorder(stream);
+        this.mediaRecorder.ondataavailable = (event) => {
+          console.log("entro");
+          this.chunks.push(event.data);
+        }
+        this.mediaRecorder.start();
+      }); 
+      
+    }else{
+      alert('tu navegador no detecta o no permite el uso de dispositivos de audio, por favor graba el audio en formato mp3 y cargalo, gracias.')
     }
+
+    
   }
 
   stopRecording(){
@@ -90,6 +101,7 @@ export class AudioTestComponent {
         this.videoUrl.set(this.sanitaizer.bypassSecurityTrustUrl(this.currentBlobVideo));
       }
       this.mediaRecorder.stop();
+      this.videoStream!.getTracks().forEach(track => track.stop()); // Detener la captura de pantalla
     }
   }
 
