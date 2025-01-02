@@ -2,7 +2,12 @@
   <section class="flex gap-2">
     <button (click)="startRecording()">Grabar</button>
     <button (click)="startVideoRecording()">Grabar video</button>
-    <button (click)="stopRecording()" class="bg-red-400">Detener</button>
+    <button (click)="stopRecordingAudio()" class="bg-red-400">
+      Detener audio
+    </button>
+    <button (click)="stopRecordingVideo()" class="bg-red-400">
+      Detener video
+    </button>
   </section>
 
   <section>

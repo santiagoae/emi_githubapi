@@ -21,26 +21,26 @@ export class AudioTestComponent{
   protected audioUrl = signal<SafeUrl | null>(null);
   protected videoUrl = signal<SafeUrl | null>(null);
 
-  #setMediaRecorder(){
-    navigator.mediaDevices
-    .getUserMedia(this.audioConstraints)
-    .then((stream) => {
-      this.mediaRecorder = new MediaRecorder(stream);
-    })
-  }
+  // #setMediaRecorder(){
+  //   navigator.mediaDevices
+  //   .getUserMedia(this.audioConstraints)
+  //   .then((stream) => {
+  //     this.mediaRecorder = new MediaRecorder(stream);
+  //   })
+  // }
 
-  setMediaVideoRecorder(){
-    if(navigator.mediaDevices){
-      navigator.mediaDevices.getDisplayMedia(this.videoConstraints)
-      .then((stream) => {
-        this.videoStream = stream;
-        this.mediaRecorder = new MediaRecorder(stream);
-      }); 
-    }else{
-      alert('tu navegador no detecta o no permite el uso de dispositivos de audio, por favor graba el audio en formato mp3 y cargalo, gracias.')
-    }
+  // #setMediaVideoRecorder(){
+  //   if(navigator.mediaDevices){
+  //     navigator.mediaDevices.getDisplayMedia(this.videoConstraints)
+  //     .then((stream) => {
+  //       this.videoStream = stream;
+  //       this.mediaRecorder = new MediaRecorder(stream);
+  //     }); 
+  //   }else{
+  //     alert('tu navegador no detecta o no permite el uso de dispositivos de audio, por favor graba el audio en formato mp3 y cargalo, gracias.')
+  //   }
     
-  }
+  // }
 
   #cleanStates(){
     this.audioUrl.set(null);
@@ -53,34 +53,30 @@ export class AudioTestComponent{
   }
 
   startRecording(){
-    if(this.mediaRecorder){  
-      if(this.currentBlobAudio){
-        this.#cleanStates();
-      }   
+    this.#cleanStates();
+    navigator.mediaDevices
+    .getUserMedia(this.audioConstraints)
+    .then((stream) => {
+      this.mediaRecorder = new MediaRecorder(stream);
       this.mediaRecorder.ondataavailable = (event) => {
         this.chunks.push(event.data);
       }
       this.mediaRecorder.start();
-    }
+    })
   }
 
-  startVideoRecording(){
-    if(this.currentBlobVideo){
-      this.#cleanStates();
-    } 
-
+  startVideoRecording(){   
+    this.#cleanStates();
     if(navigator.mediaDevices){
       navigator.mediaDevices.getDisplayMedia(this.videoConstraints)
       .then((stream) => {
         this.videoStream = stream;
         this.mediaRecorder = new MediaRecorder(stream);
         this.mediaRecorder.ondataavailable = (event) => {
-          console.log("entro");
           this.chunks.push(event.data);
         }
         this.mediaRecorder.start();
-      }); 
-      
+      });
     }else{
       alert('tu navegador no detecta o no permite el uso de dispositivos de audio, por favor graba el audio en formato mp3 y cargalo, gracias.')
     }
@@ -88,16 +84,20 @@ export class AudioTestComponent{
     
   }
 
-  stopRecording(){
+  stopRecordingAudio(){
     if(this.mediaRecorder) {
-      // this.mediaRecorder.onstop = () => {
-      //   this.currentBlobAudio = URL.createObjectURL(new Blob(this.chunks, { type: 'audio/mp3' })); //esto seria lo que se guarda en el back.
-      //   this.audioUrl.set(this.sanitaizer.bypassSecurityTrustUrl(this.currentBlobAudio));
-      // }
+      this.mediaRecorder.onstop = () => {
+        this.currentBlobAudio = URL.createObjectURL(new Blob(this.chunks, { type: 'audio/mp3' })); //esto seria lo que se guarda en el back.
+        this.audioUrl.set(this.sanitaizer.bypassSecurityTrustUrl(this.currentBlobAudio));
+      }
+      this.mediaRecorder.stop();
+    }
+  }
+
+  stopRecordingVideo(){
+    if(this.mediaRecorder) {
       this.mediaRecorder.onstop = () => {
         this.currentBlobVideo = URL.createObjectURL(new Blob(this.chunks, { type: 'video/webm' })); //esto seria lo que se guarda en el back.
-        console.log({curretblobvideo: this.currentBlobVideo});
-        
         this.videoUrl.set(this.sanitaizer.bypassSecurityTrustUrl(this.currentBlobVideo));
       }
       this.mediaRecorder.stop();
