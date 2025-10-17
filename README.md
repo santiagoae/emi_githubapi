@@ -12,6 +12,7 @@ Si deseas ver el proyecto funcionando puedes visitar este link [Grupo-emi-santia
 ## Acceso Rápido
 
 - [Solución preguntas](#Solución-preguntas)
+- [Funcionalidades Multimedia](#funcionalidades-multimedia)
 
 ## Stack
 
@@ -22,9 +23,29 @@ Si deseas ver el proyecto funcionando puedes visitar este link [Grupo-emi-santia
 - Rxjs
 - Animate.css
 - Font Awesome Icons
+- MediaRecorder API
 - Cdn
 - Git
 - Github
+
+## Funcionalidades Multimedia
+
+### Grabación de Audio y Video
+Este proyecto incluye funcionalidades avanzadas de grabación multimedia:
+
+- **Grabación de Audio**: Utiliza la MediaRecorder API para capturar audio del micrófono
+- **Grabación de Video**: Permite grabar video desde la cámara web
+- **Formatos Soportados**: 
+  - Audio: MP3 (conversión automática desde WebM)
+  - Video: WebM, MP4
+- **Controles Independientes**: Funciones separadas para iniciar/detener audio y video
+- **Optimización de Performance**: Creación eficiente de blobs para manejo de archivos multimedia
+
+### Características Técnicas
+- Detección automática de capacidades del navegador
+- Manejo de errores para dispositivos sin permisos de cámara/micrófono
+- Interfaz intuitiva con botones de control
+- Preview en tiempo real durante la grabación
 
 ## Como iniciar
 
@@ -40,6 +61,7 @@ Si deseas ver el proyecto funcionando puedes visitar este link [Grupo-emi-santia
 - [Amcharts](https://www.amcharts.com/docs/v5/)
 - [Animate.css](https://animate.style/)
 - [Font Awesome](https://fontawesome.com/)
+- [MediaRecorder API](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder)
 - [Cdn](https://cdnjs.com/libraries/font-awesome)
 - [Tailwind](https://tailwindcss.com/)
 - [Flowbite](https://flowbite.com/)
@@ -63,7 +85,7 @@ este operador nos permite comparar tanto el tipo de la variable como el valor de
 </details>
 <details name="accordion-javascript" style="white-space: pre-line;">
 <summary>¿Cómo se puede cambiar el estilo/clase de un elemento?</summary>
-si es un elemento como tal ,directamente nombrandolo en el archivo css o scss, ejemplo h1{color: white} o ya si se desea anexarle una clase tendria que asociarle al atributo class ejemplo en el archivo css o scss .elementTextColor{ color:white  }  y en el elemento h1 class=”elementTextColor”.
+si es un elemento como tal ,directamente nombrandolo en el archivo css o scss, ejemplo h1{color: white} o ya si se desea anexarle una clase tendria que asociarle al atributo class ejemplo en el archivo css o scss .elementTextColor{ color:white  }  y en el elemento h1 class="elementTextColor".
 
 </details>
 <details name="accordion-javascript" style="white-space: pre-line;">
@@ -112,7 +134,7 @@ si es solo html con la etiqueta style en el header o si es algun framework como 
 
 <details name="accordion-ts" style="white-space: pre-line;">
 <summary>¿Qué principios de programación orientada a objetos admite?</summary>
- herencia con el uso de clases alternas para generar utilidades globales, polimorfismo que seria como en otros lenguajes como java o php se trabajan las interfaces “abstractas”, abstraccion y encapsulamiento para el manejo de la privacidad dentro de la clase.
+ herencia con el uso de clases alternas para generar utilidades globales, polimorfismo que seria como en otros lenguajes como java o php se trabajan las interfaces "abstractas", abstraccion y encapsulamiento para el manejo de la privacidad dentro de la clase.
 
 </details>
 <details name="accordion-ts" style="white-space: pre-line;">
